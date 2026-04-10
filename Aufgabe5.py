@@ -1,7 +1,15 @@
 
 
 def solver():
-    function = input("Bitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
+    function_str, a, b, epsilon = get_inputs()
+    c, fc = bisection(function_str, a, b, epsilon)
+
+    print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
+    print(f"Restintervall: [{a}, {b}]")
+
+
+def get_inputs():
+    function_str = input("Bitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
 
     while True:
         try:
@@ -17,22 +25,27 @@ def solver():
 
     if a >= b:
         print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
-        return
+        exit()
 
-    while True:
-        fa = eval(function.replace('x', f'({a})'))
-        fb = eval(function.replace('x', f'({b})'))
+    return function_str, a, b, epsilon
+
+
+def function(x, function_str):
+    return eval(function_str.replace('x', f'({x})'))
+
+
+def bisection(function_str, a, b, epsilon):
+    c = (a + b) / 2
+    fc = function(c, function_str)
+
+    while abs(fc) >= epsilon:
+        fa = function(a, function_str)
+        fb = function(b, function_str)
 
         if fa * fb > 0:
             print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
-            return
+            exit()
 
-        c = (a + b) / 2
-        fc = eval(function.replace('x', f'({c})'))
-
-        if abs(b - a) < epsilon:
-            break
-        
         if fa == 0:
             print(f"Exakte Nullstelle bei a: {a}")
             return
@@ -48,8 +61,10 @@ def solver():
         else:
             a = c
 
-    print(f"\nDie Nullstelle liegt näherungsweise bei: {c}")
-    print(f"Restintervall: [{a}, {b}]")
+        c = (a + b) / 2
+        fc = function(c, function_str)
+
+    return c, fc
 
 
 
