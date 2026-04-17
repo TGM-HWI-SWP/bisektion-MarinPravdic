@@ -5,11 +5,10 @@ def solver():
     c, fc = bisection(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
-    print(f"Restintervall: [{a}, {b}]")
 
 
 def get_inputs():
-    function_str = input("Bitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
+    function_str = input("\nBitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
 
     while True:
         try:
@@ -66,7 +65,22 @@ def bisection(function_str, a, b, epsilon):
     return c, fc
 
 
+def test_solver():
+    for n in [25, 81, 144]:
+        function_str = f"x**2-{n}"
+        a = 0
+        b = n
+        epsilon = 10**-8
+
+        c, fc = bisection(function_str, a, b, epsilon)
+
+        print(f"\nTest für n = {n}")
+        print(f"Numerisch: {c}")
+        print(f"Analytisch: {n**0.5}")
+        print(f"Ungenauigkeit: {c - n**0.5}")
+
 
 if __name__ == "__main__":
     
+    test_solver()
     solver()
