@@ -35,31 +35,30 @@ def function(x, function_str):
 
 
 def bisection(function_str, a, b, epsilon):
+    fa = function(a, function_str)
+    fb = function(b, function_str)
+
+    if fa * fb > 0:
+        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
+        exit()
+
     c = (a + b) / 2
     fc = function(c, function_str)
 
     while abs(fc) >= epsilon:
-        fa = function(a, function_str)
-        fb = function(b, function_str)
-
-        if fa * fb > 0:
-            print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
-            exit()
-
         if fa == 0:
-            print(f"Exakte Nullstelle bei a: {a}")
-            return
+            return a, fa
         elif fb == 0:
-            print(f"Exakte Nullstelle bei b: {b}")
-            return
+            return b, fb
         elif fc == 0:
-            print(f"Exakte Nullstelle bei c: {c}")
-            return
+            return c, fc
 
         if fa * fc < 0:
             b = c
+            fb = fc
         else:
             a = c
+            fa = fc
 
         c = (a + b) / 2
         fc = function(c, function_str)
