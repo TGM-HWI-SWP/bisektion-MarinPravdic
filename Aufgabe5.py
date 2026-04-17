@@ -1,6 +1,8 @@
 
 
 def solver():
+    test_solver()
+
     function_str, a, b, epsilon = get_inputs()
     c, fc = bisection(function_str, a, b, epsilon)
 
@@ -77,10 +79,9 @@ def test_solver():
         print(f"\nTest für n = {n}")
         print(f"Numerisch: {c}")
         print(f"Analytisch: {n**0.5}")
-        print(f"Ungenauigkeit: {c - n**0.5}")
+        print(f"Ungenauigkeit: {abs(c - n**0.5)}")
 
 
 if __name__ == "__main__":
-    
-    test_solver()
+
     solver()
