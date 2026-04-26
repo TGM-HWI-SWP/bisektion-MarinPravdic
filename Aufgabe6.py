@@ -1,8 +1,12 @@
 
 
 def solver2():
+    test_solver2()
+
     function_str, a, b, epsilon = get_inputs()
     c, fc = regula_falsi(function_str, a, b, epsilon)
+
+    print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
 
 def get_inputs():
@@ -38,6 +42,45 @@ def regula_falsi(function_str, a, b, epsilon):
     if fa * fb > 0:
         print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
         exit()
+
+    c = b - fb * ((b - a) / (fb - fa))
+    fc = function(c, function_str)
+
+    while abs(fc) >= epsilon:
+        if fa == 0:
+            return a, fa
+        elif fb == 0:
+            return b, fb
+        elif fc == 0:
+            return c, fc
+        
+        if fa * fc < 0:
+            b = c
+            fb = fc
+        else:
+            a = c
+            fa = fc
+
+        c = b - fb * ((b - a) / (fb - fa))
+        fc = function(c, function_str)
+        
+    return c, fc
+
+
+def test_solver2():
+    for n in [16, 15, 25, 81, 144]:
+        function_str = f"x**2-{n}"
+        a = 0
+        b = n
+        epsilon = 10**-8
+
+        c, fc = regula_falsi(function_str, a, b, epsilon)
+
+        print(f"\nTest für n = {n}")
+        print(f"Numerisch: {c}")
+        print(f"Analytisch: {n**0.5}")
+        print(f"Ungenauigkeit: {abs(c - n**0.5)}")
+
 
 
 if __name__ == "__main__":
