@@ -8,9 +8,13 @@ def plotter():
     function_str, a, b, epsilon, procedure = get_inputs()
 
     if procedure == 'b':
-        c, fc = bisection(function_str, a, b, epsilon)
+        c, fc, error_values, x_values = bisection(function_str, a, b, epsilon)
     else:
-        c, fc = regula_falsi(function_str, a, b, epsilon)
+        c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
+
+    print(f"\nDie Nullstelle liegt näherungsweise bei x = {c} mit f(x) = {fc}")
+
+    visualisation(error_values, x_values)
 
 
 def get_inputs():
@@ -38,6 +42,90 @@ def get_inputs():
         exit()
 
     return function_str, a, b, epsilon, procedure
+
+
+def function(x, function_str):
+    return eval(function_str.replace('x', f'({x})'))
+
+
+def bisection(function_str, a, b, epsilon):
+    fa = function(a, function_str)
+    fb = function(b, function_str)
+
+    error_values = []
+    x_values = []
+
+    if fa * fb > 0:
+        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
+        exit()
+
+    c = (a + b) / 2
+    fc = function(c, function_str)
+
+    while abs(fc) >= epsilon:
+        error_values.append(c)
+        x_values.append(abs(fc))
+
+        if fa == 0:
+            return a, fa
+        elif fb == 0:
+            return b, fb
+        elif fc == 0:
+            return c, fc
+
+        if fa * fc < 0:
+            b = c
+            fb = fc
+        else:
+            a = c
+            fa = fc
+
+        c = (a + b) / 2
+        fc = function(c, function_str)
+
+    return c, fc, error_values, x_values
+
+
+def regula_falsi(function_str, a, b, epsilon):
+    fa = function(a, function_str)
+    fb = function(b, function_str)
+
+    error_values = []
+    x_values = []
+
+    if fa * fb > 0:
+        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
+        exit()
+
+    c = b - fb * ((b - a) / (fb - fa))
+    fc = function(c, function_str)
+
+    while abs(fc) >= epsilon:
+        error_values.append(c)
+        x_values.append(abs(fc))
+
+        if fa == 0:
+            return a, fa
+        elif fb == 0:
+            return b, fb
+        elif fc == 0:
+            return c, fc
+        
+        if fa * fc < 0:
+            b = c
+            fb = fc
+        else:
+            a = c
+            fa = fc
+
+        c = b - fb * ((b - a) / (fb - fa))
+        fc = function(c, function_str)
+        
+    return c, fc, error_values, x_values
+
+
+def visualisation(error_values, x_values):
+    plt.figure(figsize=(10, 6))
 
 
 if __name__ == "__main__":
