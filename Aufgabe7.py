@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from Aufgabe5 import bisection
-from Aufgabe6 import regula_falsi
+
 
 
 def plotter():
@@ -125,7 +124,20 @@ def regula_falsi(function_str, a, b, epsilon):
 
 
 def visualisation(error_values, x_values):
-    plt.figure(figsize=(10, 6))
+    fig, (graph1, graph2) = plt.subplots(2, 1)
+
+    for element in error_values, x_values:
+        graph1.plot(element)
+        graph1.set_title("Fehlerverlauf")
+        graph1.set_xlabel("Iteration")
+        graph1.set_ylabel("Fehler")
+
+        graph2.plot(element)
+        graph2.set_title("Funktionswerte")
+        graph2.set_xlabel("Iteration")
+        graph2.set_ylabel("f(x)")
+
+    plt.show()
 
 
 if __name__ == "__main__":
