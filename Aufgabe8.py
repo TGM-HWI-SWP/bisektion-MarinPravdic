@@ -2,18 +2,19 @@
 
 def tester():
     function_str, a, b, epsilon = get_inputs()
-    c, fc = bisection(function_str, a, b, epsilon)
+    c, fc, iterations = bisection(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
+    print(f"Anzahl der Iterationen für Genauigkeit von {epsilon}: {iterations}")
 
 
 def get_inputs():
     function_str = "2*x + x**2 + 3*x**3 - x**4"
+    a = 2
+    b = 5
 
     while True:
         try:
-            a = float(input("\nBitte geben Sie die erste Intervallsgrenze ein: "))
-            b = float(input("Bitte geben Sie die zweite Intervallsgrenze ein: "))
             epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
             break
         
@@ -21,10 +22,6 @@ def get_inputs():
             print("\nUngültige Eingabe. Bitte geben Sie gültige Zahlen ein.")
 
     epsilon = 10**epsilon_exp
-
-    if a >= b:
-        print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
-        exit()
 
     return function_str, a, b, epsilon
 
@@ -37,21 +34,12 @@ def bisection(function_str, a, b, epsilon):
     fa = function(a, function_str)
     fb = function(b, function_str)
 
-    if fa * fb > 0:
-        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
-        exit()
-
     c = (a + b) / 2
     fc = function(c, function_str)
 
-    while abs(fc) >= epsilon:
-        if fa == 0:
-            return a, fa
-        elif fb == 0:
-            return b, fb
-        elif fc == 0:
-            return c, fc
+    iterations = 0
 
+    while abs(fc) >= epsilon:
         if fa * fc < 0:
             b = c
             fb = fc
@@ -62,7 +50,9 @@ def bisection(function_str, a, b, epsilon):
         c = (a + b) / 2
         fc = function(c, function_str)
 
-    return c, fc
+        iterations += 1
+
+    return c, fc, iterations
 
 
 if __name__ == "__main__":
