@@ -149,7 +149,6 @@ def visualisation(error_values, x_values):
 
         plt.pause(0.1)
 
-    plt.tight_layout()
     plt.show()
 
 
