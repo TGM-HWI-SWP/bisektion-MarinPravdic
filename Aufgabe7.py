@@ -61,10 +61,10 @@ def bisection(function_str, a, b, epsilon):
     c = (a + b) / 2
     fc = function(c, function_str)
 
-    while abs(fc) >= epsilon:
-        x_values.append(c)
-        error_values.append(abs(fc))
+    error_values.append(abs(fc))
+    x_values.append(c)
 
+    while abs(fc) >= epsilon:
         if fa == 0:
             return a, fa
         elif fb == 0:
@@ -81,6 +81,9 @@ def bisection(function_str, a, b, epsilon):
 
         c = (a + b) / 2
         fc = function(c, function_str)
+
+        error_values.append(abs(fc))
+        x_values.append(c)
 
     return c, fc, error_values, x_values
 
@@ -99,10 +102,10 @@ def regula_falsi(function_str, a, b, epsilon):
     c = b - fb * ((b - a) / (fb - fa))
     fc = function(c, function_str)
 
-    while abs(fc) >= epsilon:
-        x_values.append(c)
-        error_values.append(abs(fc))
+    error_values.append(abs(fc))
+    x_values.append(c)
 
+    while abs(fc) >= epsilon:
         if fa == 0:
             return a, fa
         elif fb == 0:
@@ -119,12 +122,16 @@ def regula_falsi(function_str, a, b, epsilon):
 
         c = b - fb * ((b - a) / (fb - fa))
         fc = function(c, function_str)
+
+        error_values.append(abs(fc))
+        x_values.append(c)
         
     return c, fc, error_values, x_values
 
 
 def visualisation(error_values, x_values):
-    fig, (graph1, graph2) = plt.subplots(2, 1)
+    fig, (graph1, graph2) = plt.subplots(2, 1, figsize=(16, 8))
+    fig.subplots_adjust(hspace=0.5)
 
     for i in range(len(error_values)):
         graph1.clear()
@@ -133,15 +140,14 @@ def visualisation(error_values, x_values):
         graph1.plot(error_values[:i+1])
         graph1.set_title("Fehlerverlauf")
         graph1.set_xlabel("Iteration")
-        graph1.set_ylabel("Fehler")
+        graph1.set_ylabel("|f(x)|")
 
-        graph2.scatter(x_values[:i+1], [0]*(i+1))
-        graph2.axhline(0)
-        graph2.set_title("Funktionswerte")
+        graph2.plot(x_values[:i+1])
+        graph2.set_title("Aktuelle Lösung x")
         graph2.set_xlabel("Iteration")
-        graph2.set_ylabel("f(x)")
+        graph2.set_ylabel("x")
 
-        plt.pause(0.5)
+        plt.pause(0.1)
 
     plt.tight_layout()
     plt.show()
