@@ -62,8 +62,8 @@ def bisection(function_str, a, b, epsilon):
     fc = function(c, function_str)
 
     while abs(fc) >= epsilon:
-        error_values.append(c)
-        x_values.append(abs(fc))
+        x_values.append(c)
+        error_values.append(abs(fc))
 
         if fa == 0:
             return a, fa
@@ -100,8 +100,8 @@ def regula_falsi(function_str, a, b, epsilon):
     fc = function(c, function_str)
 
     while abs(fc) >= epsilon:
-        error_values.append(c)
-        x_values.append(abs(fc))
+        x_values.append(c)
+        error_values.append(abs(fc))
 
         if fa == 0:
             return a, fa
@@ -126,17 +126,24 @@ def regula_falsi(function_str, a, b, epsilon):
 def visualisation(error_values, x_values):
     fig, (graph1, graph2) = plt.subplots(2, 1)
 
-    for element in error_values, x_values:
-        graph1.plot(element)
+    for i in range(len(error_values)):
+        graph1.clear()
+        graph2.clear()
+
+        graph1.plot(error_values[:i+1])
         graph1.set_title("Fehlerverlauf")
         graph1.set_xlabel("Iteration")
         graph1.set_ylabel("Fehler")
 
-        graph2.plot(element)
+        graph2.scatter(x_values[:i+1], [0]*(i+1))
+        graph2.axhline(0)
         graph2.set_title("Funktionswerte")
         graph2.set_xlabel("Iteration")
         graph2.set_ylabel("f(x)")
 
+        plt.pause(0.5)
+
+    plt.tight_layout()
     plt.show()
 
 
