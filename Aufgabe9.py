@@ -1,11 +1,14 @@
 from Aufgabe5 import bisection
 from Aufgabe6 import regula_falsi
 from Aufgabe7 import visualisation
+import math
 
 
 def electrical_line():
     curvature_str = "x * cosh(50/x) - x - 10"
-    a, b, epsilon, procedure = get_inputs()
+    a = 100
+    b = 200
+    epsilon, procedure = get_inputs()
 
     if procedure == 'b':
         c, fc, error_values, x_values = bisection(curvature_str, a, b, epsilon)
@@ -16,12 +19,15 @@ def electrical_line():
 
     visualisation(error_values, x_values)
 
+    length = 2 * c * math.sinh(50 / c)
+
+    print(f"\nDer Krümmungsradius a beträgt: {c}m")
+    print(f"Die Länge der elektrischen Leitung beträgt: {length}m")
+
 
 def get_inputs():
     while True:
         try:
-            a = float(input("\nBitte geben Sie die erste Intervallsgrenze ein: "))
-            b = float(input("Bitte geben Sie die zweite Intervallsgrenze ein: "))
             epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
 
             procedure = input("\nMöchten Sie die Bisection-Methode oder die Regula-Falsi-Methode verwenden? (b/r): ").lower()
@@ -35,11 +41,7 @@ def get_inputs():
 
     epsilon = 10**epsilon_exp
 
-    if a >= b:
-        print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
-        exit()
-
-    return a, b, epsilon, procedure
+    return epsilon, procedure
 
 
 
