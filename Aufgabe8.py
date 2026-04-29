@@ -1,29 +1,16 @@
 
 
 def tester():
-    function_str, a, b, epsilon = get_inputs()
-    c, fc, iterations = bisection(function_str, a, b, epsilon)
-
-    print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
-    print(f"Anzahl der Iterationen für Genauigkeit von {epsilon}: {iterations}")
-
-
-def get_inputs():
     function_str = "2*x + x**2 + 3*x**3 - x**4"
     a = 2
     b = 5
 
-    while True:
-        try:
-            epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
-            break
-        
-        except ValueError:
-            print("\nUngültige Eingabe. Bitte geben Sie gültige Zahlen ein.")
+    for epsilon in [10**-2, 10**-8]:
+        c, fc, iterations = bisection(function_str, a, b, epsilon)
 
-    epsilon = 10**epsilon_exp
-
-    return function_str, a, b, epsilon
+        print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
+        print(f"Anzahl der Iterationen für Genauigkeit von {epsilon}: {iterations}")
+        print(f"Abweichung von der tatsächlichen Nullstelle: {abs(c - 3.4567)}")
 
 
 def function(x, function_str):
