@@ -4,7 +4,15 @@ from Aufgabe7 import get_procedure, visualisation
 import math
 
 
+
 def electrical_line():
+    """
+    Hauptfunktion, die die Kettenlinie für eine elektrische Leitung berechnet. Es wird die Nullstelle der Funktion "x * cosh(50/x) - x - 10" bestimmt, um den Krümmungsradius a zu finden, und anschließend die Länge der Leitung berechnet.
+
+    Rückgabewerte:
+        - None
+    """
+
     curvature_str = "x * cosh(50/x) - x - 10"
     a = 100
     b = 200
@@ -24,6 +32,7 @@ def electrical_line():
 
     print(f"\nDer Krümmungsradius a beträgt: {c}m")
     print(f"Die Länge der elektrischen Leitung beträgt: {length}m")
+
 
 
 if __name__ == "__main__":

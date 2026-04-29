@@ -1,7 +1,15 @@
 import math
 
 
+
 def solver():
+    """
+    Hauptfunktion, die die Benutzereingaben entgegennimmt, die Nullstelle anhand der Bisektionsmethode berechnet und das Ergebnis ausgibt.
+
+    Rückgabewerte:
+        - None
+    """
+
     test_solver()
 
     function_str, a, b = get_inputs()
@@ -12,6 +20,15 @@ def solver():
 
 
 def get_inputs():
+    """
+    Funktion, die die Benutzereingaben für die Funktion und die Intervallgrenzen entgegennimmt.
+
+    Rückgabewerte:
+        - function_str (string): der die Funktion repräsentiert (z.B. "x**2 - 4")
+        - a (float): die erste Intervallgrenze
+        - b (float): die zweite Intervallgrenze
+    """
+
     function_str = input("\nBitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
 
     while True:
@@ -31,6 +48,13 @@ def get_inputs():
 
 
 def get_epsilon():
+    """
+    Funktion, die die gewünschte Genauigkeit (Epsilon) vom Benutzer entgegennimmt.
+
+    Rückgabewerte:
+        - epsilon (float): die gewünschte Genauigkeit (z.B. 10**-8)
+    """
+
     while True:
         try:
             epsilon_exp = int(input("\nBitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
@@ -45,6 +69,17 @@ def get_epsilon():
 
 
 def function(x, function_str):
+    """
+    Funktion, die den Funktionswert für einen gegebenen x-Wert und eine Funktion als String berechnet.
+
+    Parameter:
+        - x (float): der Wert, für den der Funktionswert berechnet werden soll
+        - function_str (string): der die Funktion repräsentiert (z.B. "x**2 - 4")
+
+    Rückgabewerte:
+        - eval(function_str): der berechnete Funktionswert für den gegebenen x-Wert
+    """
+
     return eval(function_str, {
         "x": x,
         "sin": math.sin,
@@ -61,6 +96,23 @@ def function(x, function_str):
 
 
 def bisection(function_str, a, b, epsilon):
+    """
+    Funktion, die die Bisektionsmethode zur Nullstellenbestimmung anwendet.
+
+    Parameter:
+        - function_str (string): die Funktion als String (z.B. "x**2 - 4")
+        - a (float): die erste Intervallgrenze
+        - b (float): die zweite Intervallgrenze
+        - epsilon (float): die gewünschte Genauigkeit
+
+    Rückgabewerte:
+        - c (float): die näherungsweise Nullstelle
+        - fc (float): der Funktionswert an der Nullstelle (sollte nahe 0 sein)
+        - error_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
+        - x_values (list): Liste der aktuellen Lösungen c für jede Iteration
+        - iterations (int): die Anzahl der durchgeführten Iterationen
+    """
+
     fa = function(a, function_str)
     fb = function(b, function_str)
 
@@ -106,6 +158,13 @@ def bisection(function_str, a, b, epsilon):
 
 
 def test_solver():
+    """
+    Testfunktion, die die Bisektionsmethode mit verschiedenen Funktionen testet.
+
+    Rückgabewerte:
+        - None
+    """
+    
     for n in [25, 81, 144]:
         function_str = f"x**2-{n}"
         a = 0
@@ -118,6 +177,7 @@ def test_solver():
         print(f"Numerisch: {c}")
         print(f"Analytisch: {n**0.5}")
         print(f"Ungenauigkeit: {abs(c - n**0.5)}")
+
 
 
 if __name__ == "__main__":

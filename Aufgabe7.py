@@ -1,11 +1,17 @@
 from Aufgabe5 import get_inputs, get_epsilon, bisection
 from Aufgabe6 import regula_falsi
 import matplotlib.pyplot as plt
-import math
 
 
 
 def plotter():
+    """
+    Hauptfunktion, die die Benutzereingaben entgegennimmt, die Nullstelle anhand der gewählten Methode berechnet, das Ergebnis ausgibt und den Fehlerverlauf sowie die aktuelle Lösung visualisiert.
+
+    Rückgabewerte:
+        - None
+    """
+
     function_str, a, b = get_inputs()
     epsilon = get_epsilon()
     procedure = get_procedure()
@@ -21,16 +27,33 @@ def plotter():
 
 
 def get_procedure():
+    """
+    Funktion, die den Benutzer fragt, ob er die Bisektion-Methode oder die Regula-Falsi-Methode verwenden möchte.
+
+    Rückgabewerte:
+        - procedure (string): 'b' für Bisektion oder 'r' für Regula-Falsi
+    """
+
     while True:
-        procedure = input("\nMöchten Sie die Bisection-Methode oder die Regula-Falsi-Methode verwenden? (b/r): ").lower()
+        procedure = input("\nMöchten Sie die Bisektion-Methode oder die Regula-Falsi-Methode verwenden? (b/r): ").lower()
         if procedure not in ['b', 'r']:
-            print("\nUngültige Eingabe. Bitte geben Sie 'b' für Bisection oder 'r' für Regula-Falsi ein.")
+            print("\nUngültige Eingabe. Bitte geben Sie 'b' für Bisektion oder 'r' für Regula-Falsi ein.")
             continue
     
         return procedure
 
 
 def visualisation(error_values, x_values):
+    """
+    Funktion, die den Fehlerverlauf und die aktuelle Lösung während den Iterationen visualisiert.
+
+    Parameter:
+        - error_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
+        - x_values (list): Liste der aktuellen Lösungen c für jede Iteration
+
+    Rückgabewerte:
+        - None
+    """
     fig, (graph1, graph2) = plt.subplots(2, 1, figsize=(16, 8))
     fig.subplots_adjust(hspace=0.5)
 
@@ -51,6 +74,7 @@ def visualisation(error_values, x_values):
         plt.pause(0.1)
 
     plt.show()
+
 
 
 if __name__ == "__main__":
