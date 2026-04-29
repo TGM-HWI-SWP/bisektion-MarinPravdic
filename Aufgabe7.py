@@ -23,7 +23,7 @@ def plotter() -> None:
     else:
         c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
-    print(f"\nDie Nullstelle liegt näherungsweise bei x = {c} mit f(x) = {fc}")
+    print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
     visualisation(error_values, x_values)
 
