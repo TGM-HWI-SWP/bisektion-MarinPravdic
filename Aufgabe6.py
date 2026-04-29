@@ -1,3 +1,4 @@
+import math
 
 
 def solver2():
@@ -32,7 +33,19 @@ def get_inputs():
 
 
 def function(x, function_str):
-    return eval(function_str.replace('x', f'({x})'))
+    return eval(function_str, {
+        "x": x,
+        "sin": math.sin,
+        "cos": math.cos,
+        "tan": math.tan,
+        "sinh": math.sinh,
+        "cosh": math.cosh,
+        "exp": math.exp,
+        "sqrt": math.sqrt,
+        "log": math.log,
+        "pi": math.pi,
+        "e": math.e
+    })
 
 
 def regula_falsi(function_str, a, b, epsilon):
