@@ -12,6 +12,7 @@ def solver2() -> None:
 
     test_solver2()
 
+    # Benutzereingaben entgegennehmen
     function_str, a, b = get_inputs()
     epsilon = get_epsilon()
     c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
@@ -36,23 +37,30 @@ def regula_falsi(function_str : str, a : float, b : float, epsilon : float) -> t
         - x_values (list): Liste der aktuellen Lösungen c für jede Iteration
     """
 
+    # Berechnung der Funktionswerte an den Intervallgrenzen
     fa = function(a, function_str)
     fb = function(b, function_str)
 
+    # Listen zur Speicherung der Fehlerwerte und aktuellen Lösungen (relevant für die Visualisierung)
     error_values = []
     x_values = []
 
+    # Überprüfen, ob die Funktion an den Intervallgrenzen unterschiedliche Vorzeichen hat (d.h. eine Nullstelle enthält)
     if fa * fb > 0:
         print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
         exit()
 
+    # Initialisierung der Stelle c anhand der Regula-Falsi-Formel und des Funktionswerts an dieser Stelle
     c = b - fb * ((b - a) / (fb - fa))
     fc = function(c, function_str)
 
+    # Fehler und aktuelle Lösung zur Visualisierung speichern (relevant für die Visualisierung)
     error_values.append(abs(fc))
     x_values.append(c)
 
+    # Hauptschleife der Regula-Falsi-Methode, die so lange läuft, bis der Funktionswert an c kleiner als epsilon ist
     while abs(fc) >= epsilon:
+        # Überprüfen, ob einer der Intervallgrenzen oder die Mitte die Nullstelle ist
         if fa == 0:
             return a, fa, error_values, x_values
         elif fb == 0:
@@ -60,6 +68,7 @@ def regula_falsi(function_str : str, a : float, b : float, epsilon : float) -> t
         elif fc == 0:
             return c, fc, error_values, x_values
         
+        # Bestimmen, in welchem Intervall die Nullstelle liegt und die Intervallgrenzen entsprechend anpassen
         if fa * fc < 0:
             b = c
             fb = fc
@@ -67,6 +76,7 @@ def regula_falsi(function_str : str, a : float, b : float, epsilon : float) -> t
             a = c
             fa = fc
 
+        # Einziger Unterschied zur Bisektionsmethode: Berechnung der neuen Stelle c anhand der Regula-Falsi-Formel
         c = b - fb * ((b - a) / (fb - fa))
         fc = function(c, function_str)
 
@@ -84,6 +94,7 @@ def test_solver2() -> None:
         - None
     """
 
+    # Testfälle mit verschiedenen Funktionen und Intervallen
     for n in [16, 15, 25, 81, 144]:
         function_str = f"x**2-{n}"
         a = 0
@@ -92,6 +103,7 @@ def test_solver2() -> None:
 
         c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
+        # Ausgabe der Ergebnisse für jeden Testfall
         print(f"\nTest für n = {n}")
         print(f"Numerisch: {c}")
         print(f"Analytisch: {n**0.5}")

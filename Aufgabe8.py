@@ -10,10 +10,12 @@ def tester() -> None:
         - None
     """
 
+    # Beispiel-Funktion und Intervall für den Test
     function_str = "2*x + x**2 + 3*x**3 - x**4"
     a = 2
     b = 5
 
+    # Testen der Bisektionsmethode mit verschiedenen Genauigkeiten und Ausgabe der Ergebnisse
     for epsilon in [10**-2, 10**-8]:
         c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
