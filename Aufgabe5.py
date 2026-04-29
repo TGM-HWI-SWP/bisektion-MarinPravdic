@@ -4,8 +4,9 @@ import math
 def solver():
     test_solver()
 
-    function_str, a, b, epsilon = get_inputs()
-    c, fc = bisection(function_str, a, b, epsilon)
+    function_str, a, b = get_inputs()
+    epsilon = get_epsilon()
+    c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
@@ -17,19 +18,30 @@ def get_inputs():
         try:
             a = float(input("\nBitte geben Sie die erste Intervallsgrenze ein: "))
             b = float(input("Bitte geben Sie die zweite Intervallsgrenze ein: "))
-            epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
             break
         
         except ValueError:
             print("\nUngültige Eingabe. Bitte geben Sie gültige Zahlen ein.")
 
-    epsilon = 10**epsilon_exp
-
     if a >= b:
         print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
         exit()
 
-    return function_str, a, b, epsilon
+    return function_str, a, b
+
+
+def get_epsilon():
+    while True:
+        try:
+            epsilon_exp = int(input("\nBitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
+            break
+        
+        except ValueError:
+            print("\nUngültige Eingabe. Bitte geben Sie eine gültige Zahl ein.")
+    
+    epsilon = 10**epsilon_exp
+
+    return epsilon
 
 
 def function(x, function_str):
@@ -52,6 +64,9 @@ def bisection(function_str, a, b, epsilon):
     fa = function(a, function_str)
     fb = function(b, function_str)
 
+    error_values = []
+    x_values = []
+
     if fa * fb > 0:
         print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
         exit()
@@ -59,13 +74,18 @@ def bisection(function_str, a, b, epsilon):
     c = (a + b) / 2
     fc = function(c, function_str)
 
+    error_values.append(abs(fc))
+    x_values.append(c)
+    
+    iterations = 0
+
     while abs(fc) >= epsilon:
         if fa == 0:
-            return a, fa
+            return a, fa, error_values, x_values, iterations
         elif fb == 0:
-            return b, fb
+            return b, fb, error_values, x_values, iterations
         elif fc == 0:
-            return c, fc
+            return c, fc, error_values, x_values, iterations
 
         if fa * fc < 0:
             b = c
@@ -77,7 +97,12 @@ def bisection(function_str, a, b, epsilon):
         c = (a + b) / 2
         fc = function(c, function_str)
 
-    return c, fc
+        error_values.append(abs(fc))
+        x_values.append(c)
+
+        iterations += 1
+
+    return c, fc, error_values, x_values, iterations
 
 
 def test_solver():
@@ -87,7 +112,7 @@ def test_solver():
         b = n
         epsilon = 10**-8
 
-        c, fc = bisection(function_str, a, b, epsilon)
+        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
         print(f"\nTest für n = {n}")
         print(f"Numerisch: {c}")

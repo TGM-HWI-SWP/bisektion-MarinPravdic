@@ -1,3 +1,4 @@
+from Aufgabe5 import bisection
 import math
 
 
@@ -7,56 +8,11 @@ def tester():
     b = 5
 
     for epsilon in [10**-2, 10**-8]:
-        c, fc, iterations = bisection(function_str, a, b, epsilon)
+        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
         print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
         print(f"Anzahl der Iterationen für Genauigkeit von {epsilon}: {iterations}")
         print(f"Abweichung von der tatsächlichen Nullstelle: {abs(c - 3.4567)}")
-
-
-def function(x, function_str):
-    return eval(function_str, {
-        "x": x,
-        "sin": math.sin,
-        "cos": math.cos,
-        "tan": math.tan,
-        "sinh": math.sinh,
-        "cosh": math.cosh,
-        "exp": math.exp,
-        "sqrt": math.sqrt,
-        "log": math.log,
-        "pi": math.pi,
-        "e": math.e
-    })
-
-
-def bisection(function_str, a, b, epsilon):
-    fa = function(a, function_str)
-    fb = function(b, function_str)
-
-    if fa * fb > 0:
-        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
-        exit()
-
-    c = (a + b) / 2
-    fc = function(c, function_str)
-
-    iterations = 0
-
-    while abs(fc) >= epsilon:
-        if fa * fc < 0:
-            b = c
-            fb = fc
-        else:
-            a = c
-            fa = fc
-
-        c = (a + b) / 2
-        fc = function(c, function_str)
-
-        iterations += 1
-
-    return c, fc, iterations
 
 
 if __name__ == "__main__":

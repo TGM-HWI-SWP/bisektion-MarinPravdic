@@ -1,13 +1,17 @@
+from Aufgabe5 import get_inputs, get_epsilon, bisection
+from Aufgabe6 import regula_falsi
 import matplotlib.pyplot as plt
 import math
 
 
 
 def plotter():
-    function_str, a, b, epsilon, procedure = get_inputs()
+    function_str, a, b = get_inputs()
+    epsilon = get_epsilon()
+    procedure = get_procedure()
 
     if procedure == 'b':
-        c, fc, error_values, x_values = bisection(function_str, a, b, epsilon)
+        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
     else:
         c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
@@ -16,129 +20,14 @@ def plotter():
     visualisation(error_values, x_values)
 
 
-def get_inputs():
-    function_str = input("\nBitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
-
+def get_procedure():
     while True:
-        try:
-            a = float(input("\nBitte geben Sie die erste Intervallsgrenze ein: "))
-            b = float(input("Bitte geben Sie die zweite Intervallsgrenze ein: "))
-            epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
-
-            procedure = input("\nMöchten Sie die Bisection-Methode oder die Regula-Falsi-Methode verwenden? (b/r): ").lower()
-            if procedure not in ['b', 'r']:
-                print("\nUngültige Eingabe. Bitte geben Sie 'b' für Bisection oder 'r' für Regula-Falsi ein.")
-                continue
-            break
-
-        except ValueError:
-            print("\nUngültige Eingabe. Bitte geben Sie gültige Zahlen ein.")
-
-    epsilon = 10**epsilon_exp
-
-    if a >= b:
-        print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
-        exit()
-
-    return function_str, a, b, epsilon, procedure
-
-
-def function(x, function_str):
-    return eval(function_str, {
-        "x": x,
-        "sin": math.sin,
-        "cos": math.cos,
-        "tan": math.tan,
-        "sinh": math.sinh,
-        "cosh": math.cosh,
-        "exp": math.exp,
-        "sqrt": math.sqrt,
-        "log": math.log,
-        "pi": math.pi,
-        "e": math.e
-    })
-
-
-def bisection(function_str, a, b, epsilon):
-    fa = function(a, function_str)
-    fb = function(b, function_str)
-
-    error_values = []
-    x_values = []
-
-    if fa * fb > 0:
-        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass die Nullstelle enthält.")
-        exit()
-
-    c = (a + b) / 2
-    fc = function(c, function_str)
-
-    error_values.append(abs(fc))
-    x_values.append(c)
-
-    while abs(fc) >= epsilon:
-        if fa == 0:
-            return a, fa
-        elif fb == 0:
-            return b, fb
-        elif fc == 0:
-            return c, fc
-
-        if fa * fc < 0:
-            b = c
-            fb = fc
-        else:
-            a = c
-            fa = fc
-
-        c = (a + b) / 2
-        fc = function(c, function_str)
-
-        error_values.append(abs(fc))
-        x_values.append(c)
-
-    return c, fc, error_values, x_values
-
-
-def regula_falsi(function_str, a, b, epsilon):
-    fa = function(a, function_str)
-    fb = function(b, function_str)
-
-    error_values = []
-    x_values = []
-
-    if fa * fb > 0:
-        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
-        exit()
-
-    c = b - fb * ((b - a) / (fb - fa))
-    fc = function(c, function_str)
-
-    error_values.append(abs(fc))
-    x_values.append(c)
-
-    while abs(fc) >= epsilon:
-        if fa == 0:
-            return a, fa
-        elif fb == 0:
-            return b, fb
-        elif fc == 0:
-            return c, fc
-        
-        if fa * fc < 0:
-            b = c
-            fb = fc
-        else:
-            a = c
-            fa = fc
-
-        c = b - fb * ((b - a) / (fb - fa))
-        fc = function(c, function_str)
-
-        error_values.append(abs(fc))
-        x_values.append(c)
-        
-    return c, fc, error_values, x_values
+        procedure = input("\nMöchten Sie die Bisection-Methode oder die Regula-Falsi-Methode verwenden? (b/r): ").lower()
+        if procedure not in ['b', 'r']:
+            print("\nUngültige Eingabe. Bitte geben Sie 'b' für Bisection oder 'r' für Regula-Falsi ein.")
+            continue
+    
+        return procedure
 
 
 def visualisation(error_values, x_values):

@@ -1,56 +1,22 @@
-import math
+from Aufgabe5 import get_inputs, get_epsilon, function
 
 
 def solver2():
     test_solver2()
 
-    function_str, a, b, epsilon = get_inputs()
-    c, fc = regula_falsi(function_str, a, b, epsilon)
+    function_str, a, b = get_inputs()
+    epsilon = get_epsilon()
+    c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
-
-
-def get_inputs():
-    function_str = input("\nBitte geben Sie die Funktion f(x) ein (z.B. 'x**2 - 4'): ")
-
-    while True:
-        try:
-            a = float(input("\nBitte geben Sie die erste Intervallsgrenze ein: "))
-            b = float(input("Bitte geben Sie die zweite Intervallsgrenze ein: "))
-            epsilon_exp = int(input("Bitte geben Sie die gewünschte Genauigkeit ein (10^...): "))
-            break
-
-        except ValueError:
-            print("\nUngültige Eingabe. Bitte geben Sie gültige Zahlen ein.")
-
-    epsilon = 10**epsilon_exp
-
-    if a >= b:
-        print("\nDie erste Intervallsgrenze muss kleiner als die zweite sein.")
-        exit()
-
-    return function_str, a, b, epsilon
-
-
-def function(x, function_str):
-    return eval(function_str, {
-        "x": x,
-        "sin": math.sin,
-        "cos": math.cos,
-        "tan": math.tan,
-        "sinh": math.sinh,
-        "cosh": math.cosh,
-        "exp": math.exp,
-        "sqrt": math.sqrt,
-        "log": math.log,
-        "pi": math.pi,
-        "e": math.e
-    })
 
 
 def regula_falsi(function_str, a, b, epsilon):
     fa = function(a, function_str)
     fb = function(b, function_str)
+
+    error_values = []
+    x_values = []
 
     if fa * fb > 0:
         print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
@@ -59,13 +25,16 @@ def regula_falsi(function_str, a, b, epsilon):
     c = b - fb * ((b - a) / (fb - fa))
     fc = function(c, function_str)
 
+    error_values.append(abs(fc))
+    x_values.append(c)
+
     while abs(fc) >= epsilon:
         if fa == 0:
-            return a, fa
+            return a, fa, error_values, x_values
         elif fb == 0:
-            return b, fb
+            return b, fb, error_values, x_values
         elif fc == 0:
-            return c, fc
+            return c, fc, error_values, x_values
         
         if fa * fc < 0:
             b = c
@@ -76,8 +45,11 @@ def regula_falsi(function_str, a, b, epsilon):
 
         c = b - fb * ((b - a) / (fb - fa))
         fc = function(c, function_str)
+
+        error_values.append(abs(fc))
+        x_values.append(c)
         
-    return c, fc
+    return c, fc, error_values, x_values
 
 
 def test_solver2():
@@ -87,7 +59,7 @@ def test_solver2():
         b = n
         epsilon = 10**-8
 
-        c, fc = regula_falsi(function_str, a, b, epsilon)
+        c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
         print(f"\nTest für n = {n}")
         print(f"Numerisch: {c}")
