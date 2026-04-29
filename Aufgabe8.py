@@ -21,6 +21,10 @@ def bisection(function_str, a, b, epsilon):
     fa = function(a, function_str)
     fb = function(b, function_str)
 
+    if fa * fb > 0:
+        print("\nUngültiges Intervall. Bitte wählen Sie ein Intervall, dass eine Nullstelle enthält.")
+        exit()
+
     c = (a + b) / 2
     fc = function(c, function_str)
 
