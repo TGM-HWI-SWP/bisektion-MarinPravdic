@@ -6,11 +6,15 @@
 Dieses Projekt dient als Vorlage für ein kleines Softwareentwicklungs- und Projektmanagement-Projekt. Es enthält verschiedene Aufgaben, die jeweils in separaten Dateien bearbeitet werden.
 
 ## Aufgaben
-- Aufgabe5.py: [Kurze Beschreibung der Aufgabe]
-- Aufgabe6.py: [Kurze Beschreibung der Aufgabe]
-- Aufgabe7.py: [Kurze Beschreibung der Aufgabe]
-- Aufgabe8.py: [Kurze Beschreibung der Aufgabe]
-- Aufgabe9.py: [Kurze Beschreibung der Aufgabe]
+- Aufgabe5.py: Implementierung eines allgemeinen Solvers zur Nullstellenbestimmung mittels Bisektion inklusive Testfälle. Der Benutzer kann beliebige Funktionen eingeben (dynamisch über 'eval()').
+
+- Aufgabe6.py: Alternative Lösungsmethode zur Nullstellenbestimmung mittels dem Regula-Falsi-Verfahren inklusive Testfälle.
+
+- Aufgabe7.py: Grafische Darstellung der Iterationen: Fehlerverlauf |f(x)|, Annäherung der Lösung x, Animation des Iterationsprozesses mit matplotlib
+
+- Aufgabe8.py: Test des Solvers mit der Funktion: P4(x) = 2x + x^2 + 3x^3 - x^4. Untersuchung der Anzahl der Iterationen für: epsilon = 10^-2; epsilon = 10^-8
+
+- Aufgabe9.py: Berechnung der Länge einer elektrischen Leitung zwischen zwei Masten. Modellierung über eine hyperbolische Funktion, Bestimmung des Krümmungsradius a mittels Solver, Berechnung der Seillänge mit sinh().
 
 ## Voraussetzungen
 - Python 3.x
