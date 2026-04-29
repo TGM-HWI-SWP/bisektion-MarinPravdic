@@ -2,7 +2,7 @@ import math
 
 
 
-def solver():
+def solver() -> None:
     """
     Hauptfunktion, die die Benutzereingaben entgegennimmt, die Nullstelle anhand der Bisektionsmethode berechnet und das Ergebnis ausgibt.
 
@@ -19,7 +19,7 @@ def solver():
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
 
-def get_inputs():
+def get_inputs() -> tuple:
     """
     Funktion, die die Benutzereingaben für die Funktion und die Intervallgrenzen entgegennimmt.
 
@@ -47,7 +47,7 @@ def get_inputs():
     return function_str, a, b
 
 
-def get_epsilon():
+def get_epsilon() -> float:
     """
     Funktion, die die gewünschte Genauigkeit (Epsilon) vom Benutzer entgegennimmt.
 
@@ -68,7 +68,7 @@ def get_epsilon():
     return epsilon
 
 
-def function(x, function_str):
+def function(x : float, function_str : str) -> float:
     """
     Funktion, die den Funktionswert für einen gegebenen x-Wert und eine Funktion als String berechnet.
 
@@ -95,7 +95,7 @@ def function(x, function_str):
     })
 
 
-def bisection(function_str, a, b, epsilon):
+def bisection(function_str : str, a : float, b : float, epsilon : float) -> tuple:
     """
     Funktion, die die Bisektionsmethode zur Nullstellenbestimmung anwendet.
 
@@ -157,14 +157,14 @@ def bisection(function_str, a, b, epsilon):
     return c, fc, error_values, x_values, iterations
 
 
-def test_solver():
+def test_solver() -> None:
     """
     Testfunktion, die die Bisektionsmethode mit verschiedenen Funktionen testet.
 
     Rückgabewerte:
         - None
     """
-    
+
     for n in [25, 81, 144]:
         function_str = f"x**2-{n}"
         a = 0

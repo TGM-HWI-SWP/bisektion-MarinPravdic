@@ -2,7 +2,7 @@ from Aufgabe5 import bisection
 
 
 
-def tester():
+def tester() -> None:
     """
     Testfunktion, die die Bisektionsmethode mit einer Beispiel-Funktion testet und die Ergebnisse mit verschiedenen Genauigkeiten ausgibt.
 

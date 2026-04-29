@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 
-def plotter():
+def plotter() -> None:
     """
     Hauptfunktion, die die Benutzereingaben entgegennimmt, die Nullstelle anhand der gewählten Methode berechnet, das Ergebnis ausgibt und den Fehlerverlauf sowie die aktuelle Lösung visualisiert.
 
@@ -26,7 +26,7 @@ def plotter():
     visualisation(error_values, x_values)
 
 
-def get_procedure():
+def get_procedure() -> str:
     """
     Funktion, die den Benutzer fragt, ob er die Bisektion-Methode oder die Regula-Falsi-Methode verwenden möchte.
 
@@ -43,7 +43,7 @@ def get_procedure():
         return procedure
 
 
-def visualisation(error_values, x_values):
+def visualisation(error_values : list, x_values : list) -> None:
     """
     Funktion, die den Fehlerverlauf und die aktuelle Lösung während den Iterationen visualisiert.
 

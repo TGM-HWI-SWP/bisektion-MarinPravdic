@@ -2,7 +2,7 @@ from Aufgabe5 import get_inputs, get_epsilon, function
 
 
 
-def solver2():
+def solver2() -> None:
     """
     Hauptfunktion, die die Regula-Falsi-Methode implementiert und die Nullstelle einer Funktion findet. Es werden auch Testfälle für die Methode bereitgestellt.
 
@@ -19,7 +19,7 @@ def solver2():
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
 
-def regula_falsi(function_str, a, b, epsilon):
+def regula_falsi(function_str : str, a : float, b : float, epsilon : float) -> tuple:
     """
     Funktion, die die Regula-Falsi-Methode implementiert, um die Nullstelle einer Funktion zu finden.
 
@@ -76,14 +76,14 @@ def regula_falsi(function_str, a, b, epsilon):
     return c, fc, error_values, x_values
 
 
-def test_solver2():
+def test_solver2() -> None:
     """
     Testfunktion, die die Regula-Falsi-Methode mit verschiedenen Funktionen testet.
 
     Rückgabewerte:
         - None
     """
-    
+
     for n in [16, 15, 25, 81, 144]:
         function_str = f"x**2-{n}"
         a = 0

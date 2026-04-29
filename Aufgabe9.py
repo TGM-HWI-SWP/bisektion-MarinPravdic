@@ -5,7 +5,7 @@ import math
 
 
 
-def electrical_line():
+def electrical_line() -> None:
     """
     Hauptfunktion, die die Kettenlinie für eine elektrische Leitung berechnet. Es wird die Nullstelle der Funktion "x * cosh(50/x) - x - 10" bestimmt, um den Krümmungsradius a zu finden, und anschließend die Länge der Leitung berechnet.
 
