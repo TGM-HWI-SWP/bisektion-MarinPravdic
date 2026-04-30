@@ -70,12 +70,14 @@ def visualisation(error_values : list, x_values : list) -> None:
         # Fehlerverlauf und aktuelle Lösung bis zur aktuellen Iteration plotten
         graph1.plot(error_values[:i+1])
         graph1.set_title("Fehlerverlauf")
+        graph1.text(0.02, 0.9, f"Fehler = {error_values[i]:.6f}", transform=graph1.transAxes)   # Aktuellen Fehler als Text in der oberen linken Ecke des Plots anzeigen
         graph1.set_xlabel("Iteration")
         graph1.set_ylabel("|f(x)|")
 
         # Aktuelle Lösung x bis zur aktuellen Iteration plotten
         graph2.plot(x_values[:i+1])
         graph2.set_title("Aktuelle Lösung x")
+        graph2.text(0.02, 0.9, f"x = {x_values[i]:.6f}", transform=graph2.transAxes)    # Aktuelle Lösung als Text in der oberen linken Ecke des Plots anzeigen
         graph2.set_xlabel("Iteration")
         graph2.set_ylabel("x")
 
