@@ -10,6 +10,11 @@ def tester() -> None:
         - None
     """
 
+    # Benutzeranweisungen
+    print("=== Aufgabe 8: Genauigkeitstest ===")
+    print("Dieses Programm testet die Nullstellenberechnung an einem gegebenen Polynom.")
+    print("Die Anzahl der Iterationen wird für verschiedene Genauigkeiten ausgegeben.")
+
     # Beispiel-Funktion und Intervall für den Test
     function_str = "2*x + x**2 + 3*x**3 - x**4"
     a = 2

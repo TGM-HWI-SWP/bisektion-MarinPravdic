@@ -13,6 +13,12 @@ def electrical_line() -> None:
         - None
     """
 
+    # Benutzeranweisungen
+    print("=== Aufgabe 9: Elektrische Leitung ===")
+    print("Dieses Programm berechnet den Krümmungsradius einer Leitung.")
+    print("Anschließend wird die Länge der Leitung mithilfe der Kettenliniengleichung berechnet.")
+    print("Wählen Sie die Methode und die gewünschte Genauigkeit.")
+
     # Funktion für die Kettenlinie (Nullstelle für a/x) und Intervalle für die Berechnung
     curvature_str = "x * cosh(50/x) - x - 10"
     a = 100
@@ -32,7 +38,7 @@ def electrical_line() -> None:
 
     visualisation(accuracy_values, x_values)     # Visualisierung des Fehlerverlaufs und der aktuellen Lösung während der Iterationen für den Krümmungsradius a
 
-    length = 2 * c * math.sinh(50 / c)       # Berechnung der Länge der elektrischen Leitung basierend auf dem gefundenen Krümmungsradius a (c) und der Formel für die Kettenlinie
+    length = 2 * c * math.sinh(50 / c)       # Berechnung der Länge der elektrischen Leitung basierend auf dem gefundenen Krümmungsradius a (c) und der Kettenliniengleichung
 
     print(f"\nDer Krümmungsradius a beträgt: {c}m")
     print(f"Die Länge der elektrischen Leitung beträgt: {length}m")
