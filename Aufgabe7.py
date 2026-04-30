@@ -19,13 +19,13 @@ def plotter() -> None:
 
     # Berechnung der Nullstelle basierend auf der gewählten Methode
     if procedure == 'b':
-        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values, iterations = bisection(function_str, a, b, epsilon)
     else:
-        c, fc, error_values, x_values = regula_falsi(function_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values = regula_falsi(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
-    visualisation(error_values, x_values)
+    visualisation(accuracy_values, x_values)
 
 
 def get_procedure() -> str:
@@ -46,12 +46,12 @@ def get_procedure() -> str:
         return procedure
 
 
-def visualisation(error_values : list, x_values : list) -> None:
+def visualisation(accuracy_values : list, x_values : list) -> None:
     """
     Funktion, die den Fehlerverlauf und die aktuelle Lösung während den Iterationen visualisiert.
 
     Parameter:
-        - error_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
+        - accuracy_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
         - x_values (list): Liste der aktuellen Lösungen c für jede Iteration
 
     Rückgabewerte:
@@ -62,15 +62,15 @@ def visualisation(error_values : list, x_values : list) -> None:
     fig.subplots_adjust(hspace=0.5)                                 # Abstand zwischen den Subplots anpassen
 
     # Animieren der Plots, indem in jeder Iteration die Fehlerwerte und aktuellen Lösungen bis zu diesem Punkt geplottet werden
-    for i in range(len(error_values)):
+    for i in range(len(accuracy_values)):
         # Plots löschen, um die neuen Werte zu aktualisieren
         graph1.clear()
         graph2.clear()
 
         # Fehlerverlauf und aktuelle Lösung bis zur aktuellen Iteration plotten
-        graph1.plot(error_values[:i+1])
-        graph1.set_title("Fehlerverlauf")
-        graph1.text(0.02, 0.9, f"Fehler = {error_values[i]:.6f}", transform=graph1.transAxes)   # Aktuellen Fehler als Text in der oberen linken Ecke des Plots anzeigen
+        graph1.plot(accuracy_values[:i+1])
+        graph1.set_title("Genauigkeit")
+        graph1.text(0.02, 0.9, f"Genauigkeit = {accuracy_values[i]:.6f}", transform=graph1.transAxes)   # Aktuellen Fehler als Text in der oberen linken Ecke des Plots anzeigen
         graph1.set_xlabel("Iteration")
         graph1.set_ylabel("|f(x)|")
 

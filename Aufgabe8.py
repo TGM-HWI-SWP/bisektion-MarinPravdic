@@ -17,7 +17,7 @@ def tester() -> None:
 
     # Testen der Bisektionsmethode mit verschiedenen Genauigkeiten und Ausgabe der Ergebnisse
     for epsilon in [10**-2, 10**-8]:
-        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
         print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
         print(f"Anzahl der Iterationen für Genauigkeit von {epsilon}: {iterations}")

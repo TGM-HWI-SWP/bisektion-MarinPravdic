@@ -15,7 +15,7 @@ def solver() -> None:
     # Benutzereingaben entgegennehmen
     function_str, a, b = get_inputs()
     epsilon = get_epsilon()
-    c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
+    c, fc, accuracy_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
@@ -114,7 +114,7 @@ def bisection(function_str : str, a : float, b : float, epsilon : float) -> tupl
     Rückgabewerte:
         - c (float): die näherungsweise Nullstelle
         - fc (float): der Funktionswert an der Nullstelle (sollte nahe 0 sein)
-        - error_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
+        - accuracy_values (list): Liste der Fehlerwerte (|f(c)|) für jede Iteration
         - x_values (list): Liste der aktuellen Lösungen c für jede Iteration
         - iterations (int): die Anzahl der durchgeführten Iterationen
     """
@@ -124,7 +124,7 @@ def bisection(function_str : str, a : float, b : float, epsilon : float) -> tupl
     fb = function(b, function_str)
 
     # Listen zur Speicherung der Fehlerwerte und aktuellen Lösungen (relevant für die Visualisierung)
-    error_values = []
+    accuracy_values = []
     x_values = []
 
     # Überprüfen, ob die Funktion an den Intervallgrenzen unterschiedliche Vorzeichen hat (d.h. eine Nullstelle enthält)
@@ -137,7 +137,7 @@ def bisection(function_str : str, a : float, b : float, epsilon : float) -> tupl
     fc = function(c, function_str)
 
     # Fehler und aktuelle Lösung zur Visualisierung speichern (relevant für die Visualisierung)
-    error_values.append(abs(fc))
+    accuracy_values.append(abs(fc))
     x_values.append(c)
     
     iterations = 0  # Zähler für die Anzahl der Iterationen (relevant für Aufgabe 8)
@@ -146,11 +146,11 @@ def bisection(function_str : str, a : float, b : float, epsilon : float) -> tupl
     while abs(fc) >= epsilon:
         # Überprüfen, ob einer der Intervallgrenzen oder die Mitte die Nullstelle ist
         if fa == 0:
-            return a, fa, error_values, x_values, iterations
+            return a, fa, accuracy_values, x_values, iterations
         elif fb == 0:
-            return b, fb, error_values, x_values, iterations
+            return b, fb, accuracy_values, x_values, iterations
         elif fc == 0:
-            return c, fc, error_values, x_values, iterations
+            return c, fc, accuracy_values, x_values, iterations
 
         # Bestimmen, in welchem Intervall die Nullstelle liegt, und die Intervallgrenzen entsprechend anpassen
         if fa * fc < 0:
@@ -164,12 +164,12 @@ def bisection(function_str : str, a : float, b : float, epsilon : float) -> tupl
         c = (a + b) / 2
         fc = function(c, function_str)
 
-        error_values.append(abs(fc))
+        accuracy_values.append(abs(fc))
         x_values.append(c)
 
         iterations += 1
 
-    return c, fc, error_values, x_values, iterations
+    return c, fc, accuracy_values, x_values, iterations
 
 
 def test_solver() -> None:
@@ -187,7 +187,7 @@ def test_solver() -> None:
         b = n
         epsilon = 10**-8
 
-        c, fc, error_values, x_values, iterations = bisection(function_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values, iterations = bisection(function_str, a, b, epsilon)
 
         # Ausgabe der Ergebnisse für jeden Testfall
         print(f"\nTest für n = {n}")

@@ -24,13 +24,13 @@ def electrical_line() -> None:
 
     # Berechnung der Nullstelle basierend auf der gewählten Methode
     if procedure == 'b':
-        c, fc, error_values, x_values, iterations = bisection(curvature_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values, iterations = bisection(curvature_str, a, b, epsilon)
     else:
-        c, fc, error_values, x_values = regula_falsi(curvature_str, a, b, epsilon)
+        c, fc, accuracy_values, x_values = regula_falsi(curvature_str, a, b, epsilon)
 
     print(f"\nDie Nullstelle liegt näherungsweise bei: {c}, Funktionswert: {fc}")
 
-    visualisation(error_values, x_values)     # Visualisierung des Fehlerverlaufs und der aktuellen Lösung während der Iterationen für den Krümmungsradius a
+    visualisation(accuracy_values, x_values)     # Visualisierung des Fehlerverlaufs und der aktuellen Lösung während der Iterationen für den Krümmungsradius a
 
     length = 2 * c * math.sinh(50 / c)       # Berechnung der Länge der elektrischen Leitung basierend auf dem gefundenen Krümmungsradius a (c) und der Formel für die Kettenlinie
 
