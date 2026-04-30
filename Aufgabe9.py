@@ -14,7 +14,7 @@ def electrical_line() -> None:
     """
 
     # Benutzeranweisungen
-    print("=== Aufgabe 9: Elektrische Leitung ===")
+    print("\n=== Aufgabe 9: Elektrische Leitung ===")
     print("Dieses Programm berechnet den Krümmungsradius einer Leitung.")
     print("Anschließend wird die Länge der Leitung mithilfe der Kettenliniengleichung berechnet.")
     print("Wählen Sie die Methode und die gewünschte Genauigkeit.")

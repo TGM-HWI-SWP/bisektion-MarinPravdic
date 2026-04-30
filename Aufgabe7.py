@@ -13,7 +13,7 @@ def plotter() -> None:
     """
 
     # Benutzeranweisungen
-    print("=== Aufgabe 7: Grafische Darstellung ===")
+    print("\n=== Aufgabe 7: Grafische Darstellung ===")
     print("Dieses Programm visualisiert die Nullstellenberechnung.")
     print("Sie können zwischen Bisektion und Regula Falsi wählen.")
     print("Es werden die Genauigkeit und die Annäherung der Lösung grafisch dargestellt.")

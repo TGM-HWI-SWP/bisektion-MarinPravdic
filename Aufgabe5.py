@@ -11,7 +11,7 @@ def solver() -> None:
     """
 
     # Benutzeranweisungen
-    print("=== Aufgabe 5: Bisektionsverfahren ===")
+    print("\n=== Aufgabe 5: Bisektionsverfahren ===")
     print("Dieses Programm berechnet die Nullstelle einer Funktion mit der Bisektionsmethode.")
     print("Geben Sie eine Funktion f(x) sowie ein Intervall [a, b] mit Vorzeichenwechsel ein.")
     print("Zusätzlich wählen Sie die gewünschte Genauigkeit (z.B. -6 für 10^-6).")

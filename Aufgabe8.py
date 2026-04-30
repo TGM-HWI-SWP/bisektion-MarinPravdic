@@ -11,7 +11,7 @@ def tester() -> None:
     """
 
     # Benutzeranweisungen
-    print("=== Aufgabe 8: Genauigkeitstest ===")
+    print("\n=== Aufgabe 8: Genauigkeitstest ===")
     print("Dieses Programm testet die Nullstellenberechnung an einem gegebenen Polynom.")
     print("Die Anzahl der Iterationen wird für verschiedene Genauigkeiten ausgegeben.")
 

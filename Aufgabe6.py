@@ -11,7 +11,7 @@ def solver2() -> None:
     """
 
     # Benutzeranweisungen
-    print("=== Aufgabe 6: Regula-Falsi-Verfahren ===")
+    print("\n=== Aufgabe 6: Regula-Falsi-Verfahren ===")
     print("Dieses Programm berechnet die Nullstelle einer Funktion mit der Regula-Falsi-Methode.")
     print("Geben Sie eine Funktion f(x) sowie ein Intervall [a, b] mit Vorzeichenwechsel ein.")
     print("Zusätzlich wählen Sie die gewünschte Genauigkeit (z.B. -6 für 10^-6).")
